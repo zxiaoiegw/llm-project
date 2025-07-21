@@ -1,0 +1,8 @@
+title: "LLM Service Role Minimal"
+description: "Custom role for LLM service with minimal permissions"
+stage: "GA"
+includedPermissions:
+  # Permission to get predictions from the Vertex AI model
+  - aiplatform.endpoints.predict
+  # Permission for the application to write logs
+  - logging.logEntries.create
