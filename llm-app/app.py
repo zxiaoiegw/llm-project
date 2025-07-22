@@ -1,3 +1,4 @@
+# Import necessary libraries
 from flask import Flask, request, jsonify, render_template_string
 from flask_cors import CORS
 import os
@@ -33,7 +34,7 @@ except Exception as e:
     logger.error(f"❌ Vertex AI Gemini 2.0 Flash initialization failed: {str(e)}")
     VERTEX_AI_READY = False
 
-# Clean HTML template
+# HTML template for the web app
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -247,6 +248,7 @@ HTML_TEMPLATE = """
     </div>
 
     <script>
+        // Main API Function
         async function summarizeText() {
             const textInput = document.getElementById('textInput');
             const button = document.querySelector('.summarize-btn');
@@ -298,6 +300,7 @@ HTML_TEMPLATE = """
             buttonText.textContent = 'Generate Summary';
         }
         
+        // Helper Functions
         function clearResults() {
             document.getElementById('result').className = 'result-section';
         }
@@ -314,11 +317,13 @@ HTML_TEMPLATE = """
 </html>
 """
 
+# Route for the main page
 @app.route('/')
 def index():
     """Serve the HTML interface"""
     return render_template_string(HTML_TEMPLATE, vertex_ai_ready=VERTEX_AI_READY)
 
+# Health check endpoint
 @app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
@@ -332,6 +337,7 @@ def health_check():
         'version': 'gemini-2.0'
     })
 
+# Text summarization endpoint
 @app.route('/summarize', methods=['POST'])
 def summarize():
     """Text summarization using Gemini 2.0 Flash"""
@@ -392,6 +398,7 @@ def summarize():
             'service': 'Vertex AI Gemini 2.0'
         }), 500
 
+# Main function to run the Flask app
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port, debug=False)
