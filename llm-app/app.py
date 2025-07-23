@@ -28,10 +28,10 @@ try:
     # Load Gemini 2.0 Flash
     model = GenerativeModel("gemini-2.0-flash-001")
     VERTEX_AI_READY = True
-    logger.info("✅ Vertex AI Gemini 2.0 Flash initialized successfully")
+    logger.info("Vertex AI Gemini 2.0 Flash initialized successfully")
     
 except Exception as e:
-    logger.error(f"❌ Vertex AI Gemini 2.0 Flash initialization failed: {str(e)}")
+    logger.error(f"Vertex AI Gemini 2.0 Flash initialization failed: {str(e)}")
     VERTEX_AI_READY = False
 
 # HTML template for the web app
@@ -227,11 +227,11 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>✨ Vertex AI Text Summarization</h1>       
+        <h1>Text Summarization</h1>       
         
         <div class="input-section">
             <label for="textInput">Enter text to summarize:</label>
-            <textarea id="textInput" placeholder="Paste or type text here...">Climate change refers to long-term shifts in global temperatures and weather patterns. While climate variations are natural, since the 1800s human activities have been the main driver of climate change, primarily due to the burning of fossil fuels like coal, oil and gas. Burning fossil fuels generates greenhouse gas emissions that act like a blanket wrapped around the Earth, trapping the sun's heat and raising temperatures. The main greenhouse gases that are causing climate change include carbon dioxide and methane. These come from using gasoline for driving a car or coal for heating a building, for example. Clearing land and cutting down forests can also release carbon dioxide. Agriculture, oil and gas operations are major sources of methane emissions.</textarea>
+            <textarea id="textInput" placeholder="Paste or type text here..."></textarea>
         </div>
         
         <div class="button-container">
@@ -265,7 +265,7 @@ HTML_TEMPLATE = """
             
             // Show loading state
             button.disabled = true;
-            buttonText.innerHTML = '<span class="loading"></span>Processing with Gemini 2.0...';
+            buttonText.innerHTML = '<span class="loading"></span>Processing...';
             resultDiv.className = 'result-section';
             
             try {
