@@ -1,3 +1,4 @@
+# Provider Configuration
 terraform {
   required_providers {
     google = {
@@ -16,7 +17,7 @@ provider "google" {
 # Custom VPC Network
 resource "google_compute_network" "llm_vpc" {
   name                    = "llm-vpc"
-  auto_create_subnetworks = false
+  auto_create_subnetworks = false  
   description             = "Custom VPC for LLM project"
 }
 
@@ -29,7 +30,7 @@ resource "google_compute_subnetwork" "llm_subnet" {
   description   = "Subnet for LLM project resources"
 }
 
-# Firewall Rules
+# SSH Firewall Rules
 resource "google_compute_firewall" "allow_ssh" {
   name    = "allow-ssh"
   network = google_compute_network.llm_vpc.name
@@ -45,6 +46,7 @@ resource "google_compute_firewall" "allow_ssh" {
   description = "Allow SSH access"
 }
 
+# Web Traffic Firewall Rule
 resource "google_compute_firewall" "allow_http_https" {
   name    = "allow-http-https"
   network = google_compute_network.llm_vpc.name
@@ -60,6 +62,7 @@ resource "google_compute_firewall" "allow_http_https" {
   description = "Allow HTTP and HTTPS traffic"
 }
 
+# Internal Traffic Firewall Rule
 resource "google_compute_firewall" "allow_internal" {
   name    = "allow-internal"
   network = google_compute_network.llm_vpc.name
@@ -81,7 +84,7 @@ resource "google_compute_firewall" "allow_internal" {
   description = "Allow internal traffic within VPC"
 }
 
-# Compute Engine Instance (e2-micro for Free tier)
+# Compute VM Instance (for small cost)
 resource "google_compute_instance" "llm_vm" {
   name         = "llm-vm"
   machine_type = "e2-micro"
